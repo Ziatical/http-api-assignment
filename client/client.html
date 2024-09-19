@@ -5,6 +5,56 @@
   <link rel="stylesheet" type="text/css" href="/style.css">
   
   <script>
+    //HANDLE RESPONSE
+    const handleResponse = async (response) => {
+      const content = document.querySelector('#content');
+
+      switch(response.status) {
+        case 200:
+          content.innerHTML = `<b>This is a successful response</b>`;
+          break;
+        case 404:
+          content.innerHTML = `<b>The page you are looking for was not found.</b>`;
+          break;
+        case 400:
+          content.innerHTML = `<b>Missing valid query parameter set to true</b>`;
+          break;
+        case 401:
+          content.innerHTML = `<b>Missing loggedIn query parameter set to yes</b>`;
+          break;
+        case 403:
+          content.innerHTML = `<b>You do not have access to this content.</b>`;
+          break;
+        case 500:
+          content.innerHTML = `<b>Internal Server Error. Something went wrong.</b>`;
+          break;
+        case 501:
+          content.innerHTML = `<b>A get reqest for this page has not been implemented yet. Check again later for updated content.</b>`;
+      }
+    }
+
+    // SEND FETCH
+    const sendFetch = (url, acceptedType) => {
+      const options = {
+        method: 'GET',
+        headers: {'Accept': acceptedType},
+      }
+      const fetchPromise = fetch(url, options);
+      fetchPromise.then((response) => { handleResponse(response) });
+    }
+    
+    // INIT FUNCTION
+    const init = () => {
+      const button = document.querySelector('#send');
+      const dropdown1 = document.querySelector('#page');
+      const dropdown2 = document.querySelector('#type');
+
+      const sendData = () => sendFetch(dropdown1.value, dropdown2.value);
+
+      send.addEventListener('click', sendData);
+    };
+
+    window.onload = init;
 
   </script>
 </head>

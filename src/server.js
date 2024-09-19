@@ -1,22 +1,23 @@
 // Requires
 const http = require('http');
-const htmlHandler = require('./htmlResponses.js');
-const jsonHandler = require('./jsonResponses.js');
+const responses = require('./responses.js');
 
 // Port
 const port = process.env.PORT || process.env.NODE_PORT || 3000;
 
 // URL Structure
 const urlStruct = {
-  '/': htmlHandler.getIndex,
-  '/style.css': htmlHandler.getCSS,
-  '/success': jsonHandler.success,
-  '/badRequest': jsonHandler.badRequest,
-  '/unauthorized': jsonHandler.unauthorized,
-  '/forbidden': jsonHandler.forbidden,
-  '/internal': jsonHandler.internal,
-  '/notImplemented': jsonHandler.notImplemented,
-  notFound: jsonHandler.notFound,
+  '/': responses.getIndex,
+  '/style.css': responses.getCSS,
+  '/success': responses.objectToSend,
+  '/badRequest': responses.objectToSend,
+  '/unauthorized': responses.objectToSend,
+  '/forbidden': responses.objectToSend,
+  '/internal': responses.objectToSend,
+  '/notImplemented': responses.objectToSend,
+  '/notFound': responses.objectToSend,
+  index: responses.getIndex,
+  notFound: responses.objectToSend,
 };
 
 // Handle Requests
@@ -24,11 +25,13 @@ const onRequest = (request, response) => {
   const protocol = request.connection.encrypted ? 'https' : 'http';
   const parsedUrl = new URL(request.url, `${protocol}://${request.headers.host}`);
 
-  if (urlStruct[parsedUrl.pathname]) {
-    return urlStruct[parsedUrl.pathname](request, response);
-  }
+  request.acceptedTypes = request.headers.accept.split(',');
 
-  return urlStruct.notFound(request, response);
+  if (urlStruct[parsedUrl.pathname]) {
+    urlStruct[parsedUrl.pathname](request, response);
+  } else {
+    urlStruct.index(request, response);
+  }
 };
 
 // Start Server
