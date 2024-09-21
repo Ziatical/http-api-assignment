@@ -9,15 +9,15 @@ const port = process.env.PORT || process.env.NODE_PORT || 3000;
 const urlStruct = {
   '/': responses.getIndex,
   '/style.css': responses.getCSS,
-  '/success': responses.objectToSend,
-  '/badRequest': responses.objectToSend,
-  '/unauthorized': responses.objectToSend,
-  '/forbidden': responses.objectToSend,
-  '/internal': responses.objectToSend,
-  '/notImplemented': responses.objectToSend,
-  '/notFound': responses.objectToSend,
+  '/success': responses.success,
+  '/badRequest': responses.badRequest,
+  '/unauthorized': responses.unauthorized,
+  '/forbidden': responses.forbidden,
+  '/internal': responses.internal,
+  '/notImplemented': responses.notImplemented,
+  '/notFound': responses.notFound,
   index: responses.getIndex,
-  notFound: responses.objectToSend,
+  notFound: responses.notFound,
 };
 
 // Handle Requests
@@ -25,7 +25,7 @@ const onRequest = (request, response) => {
   const protocol = request.connection.encrypted ? 'https' : 'http';
   const parsedUrl = new URL(request.url, `${protocol}://${request.headers.host}`);
 
-  request.acceptedTypes = request.headers.accept.split(',');
+  request.acceptedType = request.headers.accept.split(',');
 
   if (urlStruct[parsedUrl.pathname]) {
     urlStruct[parsedUrl.pathname](request, response);
