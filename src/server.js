@@ -25,7 +25,7 @@ const onRequest = (request, response) => {
   const protocol = request.connection.encrypted ? 'https' : 'http';
   const parsedUrl = new URL(request.url, `${protocol}://${request.headers.host}`);
 
-  request.acceptedType = request.headers.accept.split(',');
+  request.acceptedTypes = request.headers.accept.split(',');
 
   if (urlStruct[parsedUrl.pathname]) {
     urlStruct[parsedUrl.pathname](request, response);

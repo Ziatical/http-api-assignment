@@ -33,7 +33,7 @@ const success = (request, response) => {
     id: 'success',
   };
 
-  if (request.acceptedType[0] === 'text/xml') {
+  if (request.acceptedTypes[0] === 'text/xml') {
     let responseXML = '<response>';
     responseXML = `${responseXML} <message>${message.message}</message>`;
     responseXML = `${responseXML} <id>${message.id}</id>`;
@@ -51,7 +51,7 @@ const badRequest = (request, response) => {
     id: 'badRequest',
   };
 
-  if (request.acceptedType[0] === 'text/xml') {
+  if (request.acceptedTypes[0] === 'text/xml') {
     let responseXML = '<response>';
     responseXML = `${responseXML} <message>${message.message}</message>`;
     responseXML = `${responseXML} <id>${message.id}</id>`;
@@ -69,7 +69,7 @@ const unauthorized = (request, response) => {
     id: 'unauthorized',
   };
 
-  if (request.acceptedType[0] === 'text/xml') {
+  if (request.acceptedTypes[0] === 'text/xml') {
     let responseXML = '<response>';
     responseXML = `${responseXML} <message>${message.message}</message>`;
     responseXML = `${responseXML} <id>${message.id}</id>`;
@@ -87,7 +87,7 @@ const forbidden = (request, response) => {
     id: 'forbidden',
   };
 
-  if (request.acceptedType[0] === 'text/xml') {
+  if (request.acceptedTypes[0] === 'text/xml') {
     let responseXML = '<response>';
     responseXML = `${responseXML} <message>${message.message}</message>`;
     responseXML = `${responseXML} <id>${message.id}</id>`;
@@ -105,7 +105,7 @@ const internal = (request, response) => {
     id: 'internal',
   };
 
-  if (request.acceptedType[0] === 'text/xml') {
+  if (request.acceptedTypes[0] === 'text/xml') {
     let responseXML = '<response>';
     responseXML = `${responseXML} <message>${message.message}</message>`;
     responseXML = `${responseXML} <id>${message.id}</id>`;
@@ -123,7 +123,7 @@ const notImplemented = (request, response) => {
     id: 'notImplemented',
   };
 
-  if (request.acceptedType[0] === 'text/xml') {
+  if (request.acceptedTypes[0] === 'text/xml') {
     let responseXML = '<response>';
     responseXML = `${responseXML} <message>${message.message}</message>`;
     responseXML = `${responseXML} <id>${message.id}</id>`;
@@ -141,7 +141,7 @@ const notFound = (request, response) => {
     id: 'notFound',
   };
 
-  if (request.acceptedType[0] === 'text/xml') {
+  if (request.acceptedTypes[0] === 'text/xml') {
     let responseXML = '<response>';
     responseXML = `${responseXML} <message>${message.message}</message>`;
     responseXML = `${responseXML} <id>${message.id}</id>`;
